@@ -18,7 +18,6 @@ menu = {
 PROMO_CODES = {
     "DISCOUNT10": 0.10,  # 10% discount
     "STUDENT90": 0.20,  # 20% discount
-    "FREEDRINK": 1.00     # Free drink (up to $3.50)
 }
 
 
