@@ -1,4 +1,4 @@
-inventory = {
+menu = {
     "Coffee": {
         "item_id": "ITEM101",
         "stock": 3,
@@ -18,9 +18,9 @@ inventory = {
 
 item_name = input("Item Name: ").capitalize()
 
-item_id = inventory[item_name]["item_id"]
-stock = inventory[item_name]["stock"]
-threshold = inventory[item_name]["threshold"]
+item_id = menu[item_name]["item_id"]
+stock = menu[item_name]["stock"]
+threshold = menu[item_name]["threshold"]
 
 if stock < threshold:
     status = "REORDER!"
