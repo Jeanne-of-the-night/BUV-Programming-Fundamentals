@@ -1,0 +1,50 @@
+
+
+def sort_by_price(data):
+    """Sorts products by Base Price in ascending order."""
+    n = len(data)
+    for i in range(n):
+        for j in range(0, n - i - 1):
+            if data[j][2] > data[j+1][2]:
+                data[j], data[j+1] = data[j+1], data[j]
+    return data
+
+def calculate_promo_metrics(base_price, stock, discount_rate):
+    """Calculates discounted price, total revenue, and projected savings."""
+    promo_price = base_price * (1 - discount_rate)
+    projected_revenue = promo_price * stock
+    total_savings = (base_price - promo_price) * stock
+    return promo_price, projected_revenue, total_savings
+
+def generate_business_report(data):
+    """Prints the analytical sales and promotional report."""
+    print("=" * 70)
+    print("             PROGRAM 8: BUSINESS ANALYTICS REPORT")
+    print("=" * 70)
+    
+    print(f"{'ID':<6} | {'Item Name':<12} | {'Base Price':<10} | {'Promo Price':<11} | {'Proj. Revenue':<14}")
+    print("-" * 70)
+    
+    total_revenue = 0
+    total_customer_savings = 0
+    
+    for item in data:
+        code, name, base_price, stock, discount_rate = item
+        promo_price, revenue, savings = calculate_promo_metrics(base_price, stock, discount_rate)
+        
+        total_revenue += revenue
+        total_customer_savings += savings
+        
+        print(f"{code:<6} | {name:<12} | ${base_price:<9.2f} | ${promo_price:<10.2f} | ${revenue:<13.2f}")
+    
+    print("-" * 70)
+    print(f"Total Projected Revenue : ${total_revenue:.2f}")
+    print(f"Total Promo Discounts   : ${total_customer_savings:.2f}")
+    print("=" * 70)
+
+def main():
+    print("Sorting products by base price...")
+    sorted_products = sort_by_price(products)
+    generate_business_report(sorted_products)
+
+main()

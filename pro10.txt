@@ -1,0 +1,56 @@
+
+
+def calculate_dynamic_price(base_price, stock, demand):
+    """
+    Adjusts price based on stock and demand:
+    - High Demand (>= 7) & Low Stock (< 10)  -> Surge +20%
+    - Low Demand (<= 4)  & High Stock (>= 20) -> Discount -15%
+    - Normal conditions                      -> Standard price
+    """
+    if demand >= 7 and stock < 10:
+        multiplier = 1.20
+        status = "SURGE (+20%)"
+    elif demand <= 4 and stock >= 20:
+        multiplier = 0.85
+        status = "DISCOUNT (-15%)"
+    else:
+        multiplier = 1.00
+        status = "STANDARD"
+        
+    dynamic_price = base_price * multiplier
+    return dynamic_price, status
+
+def run_pricing_simulation(data):
+    """Runs simulation and displays dynamic price adjustments."""
+    print("=" * 72)
+    print("          PROGRAM 10: DYNAMIC PRICING SIMULATION")
+    print("=" * 72)
+    
+    print(f"{'ID':<6} | {'Item Name':<10} | {'Base Price':<10} | {'Dyn. Price':<10} | {'Pricing Rule':<16}")
+    print("-" * 72)
+    
+    total_original_val = 0
+    total_dynamic_val = 0
+    
+    for item in data:
+        code, name, base_price, stock, demand = item
+        dyn_price, status = calculate_dynamic_price(base_price, stock, demand)
+        
+        total_original_val += base_price * stock
+        total_dynamic_val += dyn_price * stock
+        
+        print(f"{code:<6} | {name:<10} | ${base_price:<9.2f} | ${dyn_price:<9.2f} | {status:<16}")
+    
+    variance = total_dynamic_val - total_original_val
+    
+    print("-" * 72)
+    print(f"Original Inventory Value : ${total_original_val:.2f}")
+    print(f"Dynamic Inventory Value  : ${total_dynamic_val:.2f}")
+    print(f"Total Revenue Impact     : ${variance:+.2f}")
+    print("=" * 72)
+
+def main():
+    print("Running Dynamic Pricing Engine...")
+    run_pricing_simulation(products)
+
+main()
